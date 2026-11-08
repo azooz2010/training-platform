@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#176b50"><title>منصة اختبار إدخال البيانات ومعالجة النصوص</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><img id="logo" src="assets/logo.png" alt="شعار معهد المساندة العالي للتدريب"><div><b id="brand">منصة اختبار إدخال البيانات ومعالجة النصوص</b><small>محاكاة تدريبية للاختبار</small></div><span id="net">● يعمل دون إنترنت</span></header>
+<main>
+<section id="home" class="screen active">
+  <div class="hero institute-hero">
+    <img src="assets/institute-logo.png" alt="شعار معهد المساندة العالي للتدريب">
+    <div><small>معهد المساندة العالي للتدريب</small><h1>منصة الاختبارات والتدريب</h1><p>محاكاة تدريبية لمهارات إدخال البيانات ومعالجة النصوص وتطبيقات Office.</p></div>
+  </div>
+  <div class="cards entrance-cards">
+    <button class="card" id="studentBtn"><i>⌨</i><b>دخول المتدرب</b><small>البدء باختبار سرعة الكتابة الإلزامي</small></button>
+    <button class="card" id="trainerBtn"><i>⚙</i><b>لوحة المدرب</b><small>إدارة الاختبارات والأسئلة والنتائج</small></button>
+  </div>
+  <p class="credit">م. عبدالعزيز راشد الخيرالله</p>
+</section>
+<section id="student" class="screen"><button class="back" data-home>← الرئيسية</button><div class="panel narrow"><h2>بيانات المتدرب</h2><label>اسم المتدرب</label><input id="name" placeholder="اكتب اسمك" maxlength="80"><button class="primary" id="start">الدخول إلى الاختبار</button><p class="hint">لن يبدأ الاختبار قبل كتابة الاسم.</p></div></section> 
+<section id="traineeDashboard" class="screen">
+  <div id="previewBanner" class="preview-banner">وضع معاينة المدرب — لن تُسجل أي نتائج من هذه الشاشة <button type="button" class="secondary" id="previewReturn" hidden>العودة إلى لوحة المدرب</button></div>
+  <div class="dashboard-head"><div><small>بوابة المتدرب</small><h2>قائمة الاختبارات</h2><p id="welcomeTrainee"></p></div><img src="assets/institute-logo.png" alt="شعار المعهد"></div>
+  <div class="exam-list">
+    <div class="exam-list-head"><span>نوع الاختبار</span><span>المدة</span><span>الحالة</span><span>الإجراء</span></div>
+    <div class="exam-list-row"><b>⌨ سرعة الطباعة</b><span>10 دقائق</span><span id="typingGateStatus" class="status-locked">إلزامي أولاً</span><button class="primary" id="launchTyping">بدء الاختبار</button></div>
+    <div class="exam-list-row"><b><span class="office-icon word-icon">W</span> Microsoft Word</b><span>20 دقيقة</span><span id="wordGateStatus" class="status-locked">مقفل</span><button class="primary" id="launchWord" disabled>بدء الاختبار</button></div>
+    <div class="exam-list-row excel-trainee-row"><b><span class="office-icon excel-icon">X</span> Microsoft Excel</b><span>20 دقيقة</span><span id="excelGateStatus" class="status-locked">مقفل</span><span id="randomExcelModelLabel">نموذج عشوائي</span><button class="primary" id="launchExcel" disabled>بدء الاختبار</button></div>
+    <div class="exam-list-row"><b>اختبار المعلومات</b><span>15 دقيقة</span><span id="quizGateStatus" class="status-locked">مقفل</span><button class="primary" id="launchQuiz" disabled>بدء الاختبار</button></div>
+  </div>
+  <p class="hint">يجب اجتياز اختبار الكتابة بإدخال 160 كلمة صحيحة خلال 10 دقائق لفتح بقية الاختبارات.</p>
+  <button class="secondary" data-home>تسجيل الخروج</button>
+</section>
+<section id="exam" class="screen"><div class="examhead"><div><small id="part">القسم الأول</small><h2 id="heading">اختبار الكتابة</h2></div><strong class="timer" id="timer">10:00</strong></div><div class="bar"><span id="progress"></span></div>
+<div class="panel typing-exam-panel" id="typing">
+  <div class="typing-brand"><img src="assets/institute-logo.png" alt="شعار المعهد"><div><b>اختبار سرعة الطباعة</b><small>المطلوب: 160 كلمة صحيحة خلال 10 دقائق</small></div></div>
+  <div class="typing-reference"><label>النص المراد طباعته</label><div id="passage" class="passage"></div></div>
+  <label>اكتب النص هنا</label>
+  <textarea id="typed" rows="7" placeholder="ابدأ الكتابة هنا..." spellcheck="false"></textarea>
+  <div class="stats"><span>الصحيح <b id="correct">0</b> / 160</span><span>الخاطئ <b id="wrong">0</b></span><span>الدقة <b id="accuracy">0%</b></span><span>كلمة/دقيقة <b id="speed">0</b></span></div>
+  <div class="bar typing-gate-bar"><span id="typingGateProgress"></span></div>
+  <p id="typingGateMessage" class="typing-gate-message">لم يتم فتح بقية الاختبارات بعد. يلزم إكمال 160 كلمة صحيحة.</p>
+  <button class="primary" id="toQuiz">إنهاء الكتابة والتحقق من الاجتياز</button>
+</div>
+<div class="panel" id="quiz" hidden><p>أجب عن الأسئلة التالية · 15 دقيقة · 20 درجة</p><div id="questions"></div><button class="primary" id="submit">إنهاء الاختبار وعرض النتيجة</button></div>
+<div class="panel narrow" id="result" hidden><h2>النتيجة النهائية</h2><div class="score"><b id="total">0</b><small>من 50</small></div><div id="details"></div><button class="primary" id="save">حفظ النتيجة والعودة</button></div></section>
+
+<section id="office" class="screen">
+<button class="back" data-home>← الرئيسية</button>
+<div class="panel office-panel">
+  <div class="native-office-launch">
+    <div><b>برامج Office الأصلية</b><small>افتح Microsoft Word أو Excel المثبت على هذا الكمبيوتر لعمل الاختبار داخل البرنامج الأصلي.</small></div>
+    <div class="office-actions"><button class="secondary" id="openNativeWord">فتح Word الأصلي</button><button class="secondary" id="openNativeExcel">فتح Excel الأصلي</button></div>
+  </div>
+  <div class="office-top"><div><small>مختبر المهارات المكتبية</small><h2 id="officeHeading">تدريب Word</h2></div><div class="office-switch"><button id="wordTab" class="active">Word</button><button id="excelTab">Excel</button></div></div>
+  <div class="office-controls">
+    <div><label>اسم المتدرب</label><input id="officeName" placeholder="اكتب اسم المتدرب" maxlength="80"></div>
+    <div><label>نوع النشاط</label><select id="officeMode"><option value="test">وضع الاختبار المحاكي</option><option value="practice">وضع التدريب</option></select></div>
+    <div class="office-actions"><button class="primary" id="officeStart">بدء النشاط</button><button class="secondary" id="officeReset">إعادة ضبط</button></div>
+  </div>
+  <div class="office-task" id="officeTask"><b>تعليمات التدريب</b><p>اختر Word أو Excel، اكتب اسم المتدرب، ثم اضغط بدء النشاط لعرض المهمة.</p></div>
+  <div id="wordWorkspace" class="workspace">
+    <div class="word-toolbar">
+      <button data-cmd="bold"><b>B</b></button><button data-cmd="italic"><i>I</i></button><button data-cmd="underline"><u>U</u></button>
+      <span class="toolbar-sep"></span>
+      <button data-align="right">يمين</button><button data-align="center">توسيط</button><button data-align="left">يسار</button>
+      <span class="toolbar-sep"></span>
+      <select id="wordFontSize" aria-label="حجم الخط"><option value="3">عادي</option><option value="4">16</option><option value="5">18</option><option value="6">24</option></select>
+      <button id="wordInsertTable">إدراج جدول</button>
+    </div>
+    <div id="wordEditor" class="word-editor" contenteditable="true" spellcheck="false"><h2>مهارات الحاسوب</h2><p>اكتب هنا وتدرّب على تنسيق النصوص والفقرات في المستندات.</p></div>
+    <div class="workspace-foot"><span>مستند تدريبي · يمكنك تحرير النص وتنسيقه</span><button class="secondary" id="wordCheck">تقييم المهمة</button></div>
+  </div>
+  <div id="excelWorkspace" class="workspace" hidden>
+    <div class="excel-formula"><b id="excelCellName">A1</b><span>fx</span><input id="excelFormulaBar" placeholder="حدد خلية لعرض محتواها أو اكتب قيمة/معادلة"></div>
+    <div class="excel-scroll"><table class="excel-grid" id="excelGrid"></table></div>
+    <div class="workspace-foot"><span>اكتب الأرقام أو المعادلات مثل =SUM(B2:B5)</span><button class="secondary" id="excelCheck">تقييم المهمة</button></div>
+  </div>
+  <div id="officeExamBar" class="office-exam-bar" hidden>
+  <div class="office-exam-side"><b id="officeExamTimer">30:00</b><small>الوقت المتبقي</small></div>
+  <div class="office-exam-prompt"><small id="officeExamProgress">السؤال 1 من 1</small><b id="officeExamQuestion">تعليمات السؤال تظهر هنا</b></div>
+  <div class="office-exam-actions">
+    <button class="secondary" id="officePrev">السؤال السابق</button>
+    <button class="secondary" id="officeNext">السؤال التالي</button>
+    <button class="primary" id="officeFinish">إنهاء وإرسال الاختبار</button>
+  </div>
+</div>
+<div id="officeFeedback" class="office-feedback" hidden></div><div id="nativeOfficeStatus" class="office-feedback" hidden></div>
+</div>
+</section>
+
+<section id="trainer" class="screen"><button class="back" data-home>← الرئيسية</button><div class="panel narrow" id="login"><h2>دخول المدرب</h2><label>الرقم السري</label><input id="pin" type="password" placeholder="الرقم السري"><button class="primary" id="unlock">دخول</button><p class="hint">الرقم الافتراضي: 1234 — غيّره بعد الدخول.</p></div>
+<div id="admin" hidden><div class="admin-heading-row"><h2>لوحة تحكم المدرب</h2><div class="admin-heading-actions"><span id="adminSaveState" class="save-state is-saved">✓ جميع التعديلات محفوظة</span><button type="button" class="primary" id="previewTrainee">معاينة قسم المتدرب</button><button type="button" class="secondary" id="returnToTrainee">العودة إلى الرئيسية</button></div></div><nav class="trainer-main-tabs"><button data-tab="typingAdmin">قسم الكتابة</button><button data-tab="wordAdminTab">قسم Word</button><button data-tab="excelAdminTab">قسم Excel</button><button data-tab="theoryAdmin">الجزء النظري</button><button data-tab="settings">الإعدادات</button><button data-tab="results">النتائج</button></nav>
+<div class="panel tab" id="typingAdmin"><h3>قسم اختبار الكتابة</h3><label>اسم النص</label><input id="typingTextName" placeholder="مثال: النص الأول"><label>نص تدريب الكتابة (160 كلمة بالضبط)</label><textarea id="textEdit" rows="10"></textarea><p class="hint">يتطلب اجتياز 160 كلمة صحيحة لفتح بقية الاختبارات.</p><div class="typing-import-actions"><button class="secondary" type="button" id="importTypingWord">📄 استيراد نص من Word</button><input id="typingWordFile" type="file" accept=".docx" hidden><button class="primary" id="saveTypingText">إضافة النص إلى المكتبة</button></div><p class="hint" id="typingImportStatus">يمكن استيراد ملف Word بصيغة DOCX، ويجب أن يحتوي على 160 كلمة بالضبط.</p><div class="typing-library-panel"><div class="typing-library-heading"><h3>مكتبة نصوص الكتابة</h3><strong><span id="typingTextCount">0</span> نص محفوظ</strong></div><div id="typingTextLibrary"></div><p class="hint">يختار البرنامج نصاً عشوائياً من المكتبة عند بدء كل اختبار كتابة.</p></div></div>
+<div class="panel tab" id="theoryAdmin" hidden><h3>الجزء النظري – الأسئلة</h3><p class="hint">إدارة 5 أسئلة اختيار من متعدد بأربعة خيارات، و5 أسئلة صح أو خطأ.</p><div id="editQuestions"></div><button class="primary" id="saveTheoryQuestions">حفظ أسئلة الجزء النظري</button></div>
+<div class="panel tab" id="settings"><h3>إعدادات الموقع</h3><label>اسم الموقع</label><input id="titleEdit"><label>اللون الأساسي</label><input type="color" id="colorEdit"><label>لون الخلفية</label><input type="color" id="bgEdit"><label>رفع الشعار</label><input type="file" id="logoFile" accept="image/*"><label>الرقم السري الجديد</label><input id="pinEdit" type="password" placeholder="اتركه فارغاً للإبقاء على الرقم الحالي"><button class="primary" id="saveSettings">حفظ الإعدادات</button></div>
+
+<div class="panel tab" id="wordAdminTab" hidden>
+<h3>إدارة اختبارات البرامج الأصلية</h3><p class="hint">لكل برنامج محتوى وأسئلة ودرجات مستقلة. عند دخول المتدرب يفتح البرنامج الأصلي المثبت على جهازه مع ملف الاختبار الذي أعددته.</p>
+
+<section class="office-admin-section" id="wordAdminSection"><h3>اختبار Microsoft Word</h3><div class="office-admin-card">
+<div class="office-admin-card office-assets-card">
+ <h4>ملفات نموذج الاختبار والحل النموذجي</h4>
+ <p class="hint">ارفع نسخة الاختبار التي سيعمل عليها المتدرب، ثم ارفع نسخة الحل النموذجي الخاصة بالمدرب. ملف الحل يحفظ داخل مساحة التطبيق الخاصة ولا يظهر للمتدرب.</p>
+ <div class="office-assets-grid">
+  <div><strong>نموذج Word للمتدرب</strong><button type="button" class="secondary" id="uploadWordTemplate">＋ رفع ملف النموذج (.docx)</button><div id="wordTemplateAssets" class="office-assets-list"></div></div>
+  <div><strong>الحل النموذجي السري</strong><button type="button" class="secondary" id="uploadWordSolution">＋ رفع ملف الحل (.docx)</button><div id="wordSolutionAssets" class="office-assets-list"></div></div>
+ </div>
+ <p class="hint">يمكنك إضافة أكثر من ملف من خلال تكرار الرفع. تأكد أن نموذج الاختبار والحل متطابقان في ترتيب الصفحات والمحتوى الأساسي.</p>
+</div>
+
+<h4>1) نص التدريب في Word</h4><label>اكتب هنا النص أو المستند الذي سيظهر للمتدرب داخل Microsoft Word</label><textarea id="wordContentEdit" rows="9" placeholder="اكتب النص المطلوب من المتدرب تنسيقه في Word..."></textarea><small>هذا هو النص الأساسي الذي سيُفتح داخل Word عند بدء الاختبار.</small>
+<div class="office-admin-settings"><div><label>عدد الأسئلة / المهام</label><input id="wordTaskCount" readonly></div><div><label>مجموع درجات الأسئلة (يُحسب تلقائياً)</label><input id="wordTotalMarks" type="number" readonly></div><div><label>مدة الاختبار بالدقائق</label><input id="wordDuration" type="number" min="1" max="300"></div></div></div>
+<h4 class="office-editor-heading">2) أسئلة Word ودرجة كل سؤال</h4><p class="hint">أضف سؤالاً، اكتب المطلوب من المتدرب، ثم حدد درجته. مجموع الدرجات يتحدث تلقائياً.</p><div id="wordTaskEditor"></div><button class="secondary" id="addWordTask">＋ إضافة سؤال Word</button><button class="primary" id="saveWordTasks">حفظ إعدادات Word</button></section></div>
+<div class="panel tab" id="excelAdminTab" hidden><section class="office-admin-section" id="excelAdminSection"><h3>اختبار Microsoft Excel</h3><div class="office-admin-card">
+<div class="office-admin-card office-assets-card">
+ <h4>ملفات نموذج الاختبار والحل النموذجي</h4>
+ <p class="hint">ارفع ملف Excel الذي سيعمل عليه المتدرب، ثم ملف الحل النموذجي السري المقابل له.</p>
+ <div class="office-assets-grid">
+  <div><strong>نموذج Excel للمتدرب</strong><button type="button" class="secondary" id="uploadExcelTemplate">＋ رفع ملف النموذج</button><div id="excelTemplateAssets" class="office-assets-list"></div></div>
+  <div><strong>الحل النموذجي السري</strong><button type="button" class="secondary" id="uploadExcelSolution">＋ رفع ملف الحل</button><div id="excelSolutionAssets" class="office-assets-list"></div></div>
+ </div>
+ <p class="hint">الحل النموذجي لا يُرسل إلى شاشة المتدرب. يفضل رفع ملفي النموذج والحل لكل نموذج على حدة وبأسماء واضحة.</p>
+</div>
+
+<h4>1) ملفات Excel إضافية</h4>
+<p class="hint">أضف ملف Excel، وسيُنشأ له نموذج تلقائيًا. سيظهر بجانب كل ملف زر لإضافة أسئلته أو تعديلها. لكل ملف أسئلة مستقلة، ويختار التطبيق نموذجًا عشوائيًا للمتدرب.</p>
+<input id="excelFilesPicker" type="file" accept=".xlsx,.xls,.xlsm,.csv" multiple hidden>
+<button type="button" class="secondary" id="addExcelFiles">＋ إضافة ملفات Excel</button>
+<div id="excelFilesAdminList" class="excel-files-list"></div>
+<div class="office-admin-card">
+ <h4>نماذج Excel (حتى 4 نماذج)</h4>
+ <p class="hint">كل بطاقة تمثل نموذجًا مستقلًا. أضف ملف النموذج، ثم اضغط «إضافة أسئلة لهذا النموذج» لتخصيص أسئلته. يختار التطبيق عشوائيًا من النماذج الأربعة الجاهزة.</p>
+ <div id="excelModelCards" class="excel-model-cards"></div>
+ <label for="excelModelSelect">النموذج المحدد للتعديل</label>
+ <select id="excelModelSelect"><option value="">لا توجد نماذج بعد</option></select>
+ <label for="excelModelNameEdit">اسم النموذج</label><input id="excelModelNameEdit" placeholder="اكتب اسم النموذج">
+ <button type="button" class="secondary" id="saveExcelModelName">حفظ اسم النموذج</button>
+ <div class="office-actions">
+  <button type="button" class="secondary" id="addExcelModel">＋ إنشاء نموذج من ملف مستورد</button>
+  <button type="button" class="secondary" id="deleteExcelModel">حذف النموذج المحدد</button>
+ </div>
+ <p class="hint">كل نموذج له ملف Excel وأسئلته ودرجاته ومدته الخاصة. يتم اختيار نموذج عشوائيًا للمتدرب عند بدء الاختبار.</p>
+</div>
+<div class="office-admin-settings"><div><label>عدد الأسئلة / المهام</label><input id="excelTaskCount" readonly></div><div><label>مجموع درجات الأسئلة (يُحسب تلقائياً)</label><input id="excelTotalMarks" type="number" readonly></div><div><label>مدة الاختبار بالدقائق</label><input id="excelDuration" type="number" min="1" max="300"></div></div></div>
+<h4 class="office-editor-heading">2) أسئلة Excel ودرجة كل سؤال</h4><p class="hint">أضف سؤالاً، اكتب المطلوب داخل الجدول أو التنسيق أو المعادلة، ثم حدد درجة السؤال.</p><div id="excelTaskEditor"></div><button class="secondary" id="addExcelTask">＋ إضافة سؤال للنموذج المحدد</button><button class="primary" id="saveExcelTasks">حفظ أسئلة النموذج المحدد</button></section></div>
+<div class="panel tab" id="results" hidden><h3>نتائج المتدربين</h3><div id="resultList"></div><button class="secondary" id="csv">تصدير النتائج CSV</button><button class="secondary" id="backup">تنزيل نسخة احتياطية</button><label>استيراد نسخة احتياطية</label><input type="file" id="restore" accept="application/json"></div></div></section>
+</main><footer>م. عبدالعزيز راشد الخيرالله</footer><script src="app.js"></script></body></html>

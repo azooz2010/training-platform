@@ -1,0 +1,46 @@
+{
+  "name": "typing-exam-platform",
+  "version": "3.8.5",
+  "description": "Excel worksheet-like trainer editor matching the supplied RTL Excel screenshot",
+  "main": "main.js",
+  "author": "عبدالعزيز راشد الخير الله",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "sa.training.typingexam",
+    "productName": "منصة اختبار إدخال البيانات",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "style.css",
+      "app.js",
+      "main.js",
+      "preload.js",
+      "assets/**/*",
+      "office-bar.html",
+      "office-bar.js"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true
+    }
+  }
+}

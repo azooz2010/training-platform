@@ -1,0 +1,4 @@
+الإصدار 3.8.6
+- إضافة GitHub Actions workflow لبناء مثبت Windows x64 تلقائياً على windows-latest.
+- رفع Setup.exe الناتج كـ Artifact باسم Platform-Windows-x64-Setup.
+- إضافة دليل مبسط لرفع المشروع وتشغيل البناء.
